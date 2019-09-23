@@ -1,0 +1,43 @@
+---
+
+# untuk konfigurasi dibawah ini akan anda dapatkan dari NRO Indonesia(ITB & UII).
+eduroam_flr_servers:
+  - hostname: flr1.uii.ac.id
+    ip: 103.220.113.18
+    port: 1812
+    secret: MySharedSecret
+
+# realm anda untuk eduroam(biasanya domain institusi anda, misal:uii.ac.id atau itb.ac.id)
+radius_realm: university.ac.id
+
+# user dan password local user di institusi anda
+radius_local_users:
+  - username: eduroamuser
+    password: passworduser
+
+# Common Certificate Infomation
+cert_country: ID
+cert_state: Yogyakarta
+cert_local: Yogyakarta
+cert_org: Universitas Anda #silahkan di edit sesuai dengan institusi anda
+cert_unit: Yogyakarta research and education network
+#cert_crl_uri: ""
+
+# CA Infomation
+#cert_ca_email: ca@kisti.re.kr
+#cert_ca_email: ""
+cert_ca_common_name: "University Certificate Authority"
+
+# Server Certificate Infomation
+#cert_server_email: ca@kisti.re.kr
+#cert_server_email: ""
+cert_server_common_name: university.ac.id
+
+# Inner Server Certificate Infomation
+#cert_inner_server_email: ca@kisti.re.kr
+#cert_inner_server_email: ""
+cert_inner_server_common_name: inner.university.ac.id
+
+# Client Certificate Infomation
+cert_client_email: eduroam@universitas.ac.id
+cert_client_common_name: "{{cert_client_email}}"
