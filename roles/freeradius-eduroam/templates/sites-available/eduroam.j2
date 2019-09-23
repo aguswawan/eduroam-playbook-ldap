@@ -41,7 +41,6 @@ server eduroam {
 #	}
 
 	authorize {
-	  -ldap
 		# only use filter_username from version > 3.0.7
 		filter_username
 		# these normalise MAC addresses
@@ -69,9 +68,6 @@ server eduroam {
 	}
 
 	authenticate {
-	Auth-Type LDAP {
-		ldap
-	}
 		eap
 	}
 
@@ -88,7 +84,6 @@ server eduroam {
 		update {
 			&reply: += &session-state:
 		}
-		ldap
 		# if you want detailed logging
 		reply_log
 		f_ticks

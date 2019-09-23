@@ -17,8 +17,6 @@ ldap ldap_{{loop.index}} {
 	#
 	#  Mapping of LDAP directory attributes to RADIUS dictionary attributes.
 	#
-  sasl {
-  }
 	update {
 		control:Password-With-Header	+= 'userPassword'
 #		control:NT-Password		:= 'ntPassword'
@@ -29,12 +27,12 @@ ldap ldap_{{loop.index}} {
 
 	#  Set to yes if you have eDirectory and want to use the universal
 	#  password mechanism.
-##	edir = {{"yes" if ldap_is_edir else "no"}}
+	##edir = {{"yes" if ldap_is_edir else "no"}}
 
 	#  Set to yes if you want to bind as the user after retrieving the
 	#  Cleartext-Password. This will consume the login grace, and
 	#  verify user authorization.
-##	edir_autz = {{"yes" if ldap_is_edir else "no"}}
+	##edir_autz = {{"yes" if ldap_is_edir else "no"}}
 
 	user {
 		base_dn = "${..base_dn}"
@@ -47,12 +45,13 @@ ldap ldap_{{loop.index}} {
 	group {
 		base_dn = "${..base_dn}"
 		filter = '{{server.group_filter|default("(objectClass=posixGroup)")}}'
-#		scope = '{{server.scope|default("sub")}}'
-		membership_filter = "(|(member=%{control:Ldap-UserDn})(memberUid=%{%{Stripped-User-Name}:-%{User-Name}}))"
+		membership_filter = "{{server.membership_filter|default((member=%{control:Ldap-UserDn})(memberUid=%{%{Stripped-User-Name}:-%{User-Name}}))}}"
+##		scope = '{{server.scope|default("sub")}}'
 		membership_attribute = '{{server.group_member_attr|default("memberOf")}}'
 	}
 	profile {
 	}
+
 	client {
 					base_dn = "${..base_dn}"
 					filter = '(objectClass=radiusClient)'
@@ -64,63 +63,52 @@ ldap ldap_{{loop.index}} {
 					}
 	}
 	accounting {
-				reference = "%{tolower:type.%{Acct-Status-Type}}"
-				type {
-								start {
-												update {
-																description := "Online at %S"
-												}
-								}
-								interim-update {
-												update {
-																description := "Last seen at %S"
-												}
-								}
-								stop {
-												update {
-																description := "Offline at %S"
-																}
-												}
-								}
-				}
-				post-auth {
-					update {
-									description := "Authenticated at %S"
+					reference = "%{tolower:type.%{Acct-Status-Type}}"
+					type {
+									start {
+													update {
+																	description := "Online at %S"
+													}
 									}
+									interim-update {
+													update {
+																	description := "Last seen at %S"
+													}
+									}
+									stop {
+													update {
+																	description := "Offline at %S"
+													}
+									}
+					}
+	}
+	post-auth {
+				update {
+								description := "Authenticated at %S"
 				}
-				options {
-					chase_referrals = yes
-					rebind = yes
-					res_timeout = 10
-					srv_timelimit = 3
-					net_timeout = 1
-					idle = 60
-					probes = 3
-					interval = 3
-					ldap_debug = 0x0028
-				}
+}
 
-##	options {
+	options {
 #		dereference = 'always'
-##		chase_referrals = yes
-##		rebind = yes
-##		res_timeout = 10
-##		srv_timelimit = 3
-##		net_timeout = 1
-##		idle = 60
-##		probes = 3
-##		interval = 3
-##		ldap_debug = 0x0028
-##	}
+		chase_referrals = yes
+		rebind = yes
+		res_timeout = 10
+		srv_timelimit = 3
+		net_timeout = 1
+		idle = 60
+		probes = 3
+		interval = 3
+		ldap_debug = 0x0028
+	}
 
 	tls {
-#		start_tls = {{ "yes" if server.start_tls is defined and server.start_tls else "no"}}
+##		start_tls = {{ "yes" if server.start_tls is defined and server.start_tls else "no"}}
 #		ca_file	= ${certdir}/cacert.pem
 #		ca_path	= ${certdir}
 #		certificate_file = /path/to/radius.crt
 #		private_key_file = /path/to/radius.key
 #		random_file = /dev/urandom
-		require_cert	= 'allow'
+##		require_cert	= 'allow'
 	}
 
 	pool {

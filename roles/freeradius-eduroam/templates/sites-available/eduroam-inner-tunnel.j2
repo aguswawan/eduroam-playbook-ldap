@@ -58,12 +58,11 @@ server eduroam-inner-tunnel {
 		eap {
 			ok = return
 		}
-		-ldap
-#{% if use_ldap %}
-#		-ldap {
-#			notfound = return
-#		}
-#{% endif %}
+{% if use_ldap %}
+		-ldap {
+			notfound = return
+		}
+{% endif %}
 		files
 		expiration
 		mschap
@@ -106,10 +105,10 @@ server eduroam-inner-tunnel {
 	}
 
 	post-auth {
-#{% if use_ldap and ldap_is_edir is defined and ldap_is_edir %}
+{% if use_ldap and ldap_is_edir is defined and ldap_is_edir %}
 		# Support 'edir_account_policy_check = yes'
 		ldap
-#{% endif %}
+{% endif %}
 		# This sets a Chargeable-User-Identity, remember to set cui_hash_key
 		# in policy.d/cui so your users' privacy is preserved
 {{ "" if send_cui else "#"     }}		cui-inner
@@ -141,9 +140,9 @@ server eduroam-inner-tunnel {
 			}
 		}
 		Post-Auth-Type REJECT {
-#{% if use_ldap and ldap_is_edir is defined and ldap_is_edir %}
-#			ldap
-#{% endif %}
+{% if use_ldap and ldap_is_edir is defined and ldap_is_edir %}
+			ldap
+{% endif %}
 			reply_log
 			attr_filter.access_reject
 			if (&outer.request:EAP-Message) {
