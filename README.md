@@ -39,7 +39,7 @@ change ansible group variable
 # untuk konfigurasi dibawah ini akan anda dapatkan dari NRO Indonesia(ITB & UII).
 eduroam_flr_servers:
   - hostname: flr1.uii.ac.id
-    ip: 103.220.113.18
+    ip: eduroam.uii.ac.id
     port: 1812
     secret: MySharedSecret
 
