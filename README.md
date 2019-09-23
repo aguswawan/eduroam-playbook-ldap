@@ -39,7 +39,7 @@ change ansible group variable
 # untuk konfigurasi dibawah ini akan anda dapatkan dari NRO Indonesia(ITB & UII).
 eduroam_flr_servers:
   - hostname: flr1.uii.ac.id
-    ip: eduroam.uii.ac.id
+    ip: 103.220.113.18
     port: 1812
     secret: MySharedSecret
 
@@ -53,7 +53,7 @@ radius_local_users:
 ```
 install IRS - Run Ansible
 ```bash
-ansible-playbook-ldap -i inventories/development site.yml
+ansible-playbook -i inventories/development site.yml
 ```
 testing local user
 ```bash
