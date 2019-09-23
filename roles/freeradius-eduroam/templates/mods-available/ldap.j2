@@ -53,39 +53,39 @@ ldap ldap_{{loop.index}} {
 	}
 
 	client {
-					base_dn = "${..base_dn}"
-					filter = '(objectClass=radiusClient)'
-					template {
-					}
-					attribute {
-									ipaddr                          = 'radiusClientIdentifier'
-									secret                          = 'radiusClientSecret'
+	base_dn = "${..base_dn}"
+	filter = '(objectClass=radiusClient)'
+	template {
+	}
+	attribute {
+	ipaddr	= 'radiusClientIdentifier'
+	secret	= 'radiusClientSecret'
 					}
 	}
 	accounting {
-					reference = "%{tolower:type.%{Acct-Status-Type}}"
-					type {
-									start {
-													update {
-																	description := "Online at %S"
-													}
-									}
-									interim-update {
-													update {
-																	description := "Last seen at %S"
-													}
-									}
-									stop {
-													update {
-																	description := "Offline at %S"
-													}
-									}
+	reference = "%{tolower:type.%{Acct-Status-Type}}"
+	type {
+		start {
+			update {
+					description := "Online at %S"
+				}
+			}
+		interim-update {
+							update {
+							description := "Last seen at %S"
+							}
+						}
+						stop {
+						update {
+						description := "Offline at %S"
+						}
 					}
+			}
 	}
 	post-auth {
-				update {
-								description := "Authenticated at %S"
-				}
+		update {
+			description := "Authenticated at %S"
+			}
 }
 
 	options {
