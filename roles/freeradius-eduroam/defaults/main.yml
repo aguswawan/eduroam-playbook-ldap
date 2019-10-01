@@ -20,7 +20,7 @@ radius_local_users:
 use_pam: no
 pam_service_name: radiusd
 
-use_ldap: yes
+use_ldap: no
 ldap_is_edir: no
 ldap_servers:
   - hostname: localhost

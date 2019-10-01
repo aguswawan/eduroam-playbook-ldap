@@ -20,7 +20,7 @@
   apt:
     name: freeradius-ldap
     state: present
-  when: use_ldap is defined and use_ldap
+#  when: use_ldap is defined and use_ldap
   tags: [ freeradius, apt ]
 
 - stat: path=/etc/freeradius/backup_3.0
