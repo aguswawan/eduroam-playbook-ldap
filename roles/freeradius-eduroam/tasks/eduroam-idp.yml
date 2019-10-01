@@ -113,14 +113,14 @@
   when: use_ldap is defined and use_ldap
   tags: [ freeradius, freeradius-config, eduroam-idp ]
 
-#- name: Create an ldap instantiation config
-#  become: yes
-#  block:
-#     - name: create ldap mods-config directory
-#       file:
-#         path: /etc/freeradius/3.0/mods-config/ldap
-#         state: directory
-#         mode: 0755
+- name: Create an ldap instantiation config
+  become: yes
+  block:
+     - name: create ldap mods-config directory
+       file:
+         path: /etc/freeradius/3.0/mods-config/ldap
+         state: directory
+         mode: 0755
 #     - name: create an ldap instantiation config in mods-config
 #       template:
 #         src: mods-config/ldap/instantiate.j2
@@ -132,8 +132,8 @@
 #         line: "$INCLUDE mods-config/ldap/instantiate"
 #         state: present
 #         insertafter: "^instantiate\\s*{"
-#  when: use_ldap is defined and use_ldap
-#  tags: [ freeradius, freeradius-config, eduroam-idp ]
+  when: use_ldap is defined and use_ldap
+  tags: [ freeradius, freeradius-config, eduroam-idp ]
 
 #- name: Seed a secret for Chargeable-User-Identity
 #  become: yes

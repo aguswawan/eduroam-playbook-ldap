@@ -25,7 +25,7 @@ apt -y install git ansible
 ```
 clone ansible scripts
 ```bash
-git clone https://github.com/aguswawan/eduroam-playbook
+git clone https://github.com/aguswawan/eduroam-playbook-ldap
 ```
 IRS setting (file config at group_vars/all)
 ```bash
