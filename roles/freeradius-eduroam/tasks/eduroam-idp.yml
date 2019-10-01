@@ -48,45 +48,44 @@
     - restart freeradius
   tags: [ freeradius, freeradius-config, eduroam-idp ]
 
-- name: Configure eduroam-inner-tunnel virtual site
-  become: yes
-  template:
-    src: sites-available/eduroam-inner-tunnel.j2
-    dest: /etc/freeradius/3.0/sites-available/eduroam-inner-tunnel
-  notify:
-    - restart freeradius
-  tags: [ freeradius, freeradius-config, eduroam-idp ]
+#- name: Configure eduroam-inner-tunnel virtual site
+#  become: yes
+#  template:
+#    src: sites-available/eduroam-inner-tunnel.j2
+#    dest: /etc/freeradius/3.0/sites-available/eduroam-inner-tunnel
+#  notify:
+#    - restart freeradius
+#  tags: [ freeradius, freeradius-config, eduroam-idp ]
 
-- name: Enable eduroam-inner-tunnel virtual site
-  become: yes
-  file:
-    state: link
-    src: /etc/freeradius/3.0/sites-available/eduroam-inner-tunnel
-    path: /etc/freeradius/3.0/sites-enabled/eduroam-inner-tunnel
-  notify:
-    - restart freeradius
-  tags: [ freeradius, freeradius-config, eduroam-idp ]
+#- name: Enable eduroam-inner-tunnel virtual site
+#  become: yes
+#  file:
+#    state: link
+#    src: /etc/freeradius/3.0/sites-available/eduroam-inner-tunnel
+#    path: /etc/freeradius/3.0/sites-enabled/eduroam-inner-tunnel
+#  notify:
+#    - restart freeradius
+#  tags: [ freeradius, freeradius-config, eduroam-idp ]
 
-- name: Create a users file
-  become: yes
-  template:
-    src: mods-config/files/authorize.j2
-    dest: /etc/freeradius/3.0/mods-config/files/authorize
-  notify:
-    - restart freeradius
-  tags: [ freeradius, freeradius-config, eduroam-idp ]
+#- name: Create a users file
+#  become: yes
+#  template:
+#    src: mods-config/files/authorize.j2
+#    dest: /etc/freeradius/3.0/mods-config/files/authorize
+#  notify:
+#    - restart freeradius
+#  tags: [ freeradius, freeradius-config, eduroam-idp ]
 
-- name: Enable the PAM module
-  become: yes
-  file:
-    state: link
-    src: /etc/freeradius/3.0/mods-available/pam
-    path: /etc/freeradius/3.0/mods-enabled/pam
-  when: use_pam is defined and use_pam
-  notify:
-    - restart freeradius
-  tags: [ freeradius, freeradius-config, eduroam-idp ]
-
+#- name: Enable the PAM module
+#  become: yes
+#  file:
+#    state: link
+#    src: /etc/freeradius/3.0/mods-available/pam
+#    path: /etc/freeradius/3.0/mods-enabled/pam
+#  when: use_pam is defined and use_pam
+#  notify:
+#    - restart freeradius
+#
 - name: Override the ldap module config in the FreeRADIUS approved way
   become: yes
   block:
