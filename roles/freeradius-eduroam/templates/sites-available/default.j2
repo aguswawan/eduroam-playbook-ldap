@@ -44,6 +44,7 @@ authorize {
         pap
 }
 authenticate {
+        ldap
         Auth-Type PAP {
                 pap
         }
@@ -55,6 +56,9 @@ authenticate {
         }
         mschap
         digest
+        Auth-Type LDAP {
+                ldap
+        }
         eap
 }
 preacct {
@@ -77,6 +81,7 @@ post-auth {
                 &reply: += &session-state:
         }
         -sql
+        ldap
         exec
         remove_reply_message_if_eap
         Post-Auth-Type REJECT {
