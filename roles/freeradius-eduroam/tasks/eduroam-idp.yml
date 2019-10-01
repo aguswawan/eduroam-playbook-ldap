@@ -48,6 +48,17 @@
     - restart freeradius
   tags: [ freeradius, freeradius-config, eduroam-idp ]
 
+
+- name: Configure mods-ldap
+  become: yes
+  template:
+    src: mods-available/ldap.j2
+    dest: /etc/freeradius/3.0/mods-enabled/ldap
+  notify:
+    - restart freeradius
+  tags: [ freeradius, freeradius-config, eduroam-idp ]
+
+
 #- name: Configure eduroam-inner-tunnel virtual site
 #  become: yes
 #  template:
