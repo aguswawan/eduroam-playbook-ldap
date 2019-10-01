@@ -30,6 +30,15 @@
         - restart freeradius
   tags: [ freeradius, freeradius-config, eduroam-idp ]
 
+- name: Configure default virtual site
+  become: yes
+  template:
+    src: sites-available/default.j2
+    dest: /etc/freeradius/3.0/sites-enabled/default
+  notify:
+    - restart freeradius
+  tags: [ freeradius, freeradius-config, eduroam-idp ]
+
 - name: Configure eduroam-inner-tunnel virtual site
   become: yes
   template:
