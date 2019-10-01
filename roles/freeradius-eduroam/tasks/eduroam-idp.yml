@@ -48,33 +48,33 @@
     - restart freeradius
   tags: [ freeradius, freeradius-config, eduroam-idp ]
 
-#- name: Configure eduroam-inner-tunnel virtual site
-#  become: yes
-#  template:
-#    src: sites-available/eduroam-inner-tunnel.j2
-#    dest: /etc/freeradius/3.0/sites-available/eduroam-inner-tunnel
-#  notify:
-#    - restart freeradius
-#  tags: [ freeradius, freeradius-config, eduroam-idp ]
+- name: Configure eduroam-inner-tunnel virtual site
+  become: yes
+  template:
+    src: sites-available/eduroam-inner-tunnel.j2
+    dest: /etc/freeradius/3.0/sites-available/eduroam-inner-tunnel
+  notify:
+    - restart freeradius
+  tags: [ freeradius, freeradius-config, eduroam-idp ]
 
-#- name: Enable eduroam-inner-tunnel virtual site
-#  become: yes
-#  file:
-#    state: link
-#    src: /etc/freeradius/3.0/sites-available/eduroam-inner-tunnel
-#    path: /etc/freeradius/3.0/sites-enabled/eduroam-inner-tunnel
-#  notify:
-#    - restart freeradius
-#  tags: [ freeradius, freeradius-config, eduroam-idp ]
+- name: Enable eduroam-inner-tunnel virtual site
+  become: yes
+  file:
+    state: link
+    src: /etc/freeradius/3.0/sites-available/eduroam-inner-tunnel
+    path: /etc/freeradius/3.0/sites-enabled/eduroam-inner-tunnel
+  notify:
+    - restart freeradius
+  tags: [ freeradius, freeradius-config, eduroam-idp ]
 
-#- name: Create a users file
-#  become: yes
-#  template:
-#    src: mods-config/files/authorize.j2
-#    dest: /etc/freeradius/3.0/mods-config/files/authorize
-#  notify:
-#    - restart freeradius
-#  tags: [ freeradius, freeradius-config, eduroam-idp ]
+- name: Create a users file
+  become: yes
+  template:
+    src: mods-config/files/authorize.j2
+    dest: /etc/freeradius/3.0/mods-config/files/authorize
+  notify:
+    - restart freeradius
+  tags: [ freeradius, freeradius-config, eduroam-idp ]
 
 #- name: Enable the PAM module
 #  become: yes
@@ -99,11 +99,11 @@
         get_md5: no
         get_mime: no
       register: ldap
-#    - name: Disable the default ldap module
-#      file:
-#        path: /etc/freeradius/3.0/mods-enabled/ldap
-#        state: absent
-#      when: ldap.stat.islnk is defined and ldap.stat.islnk
+    - name: Disable the default ldap module
+      file:
+        path: /etc/freeradius/3.0/mods-enabled/ldap
+        state: absent
+      when: ldap.stat.islnk is defined and ldap.stat.islnk
     - name: Install a new eduroam-ish ldap module
       template:
         src: mods-available/ldap.j2
@@ -121,17 +121,17 @@
          path: /etc/freeradius/3.0/mods-config/ldap
          state: directory
          mode: 0755
-#     - name: create an ldap instantiation config in mods-config
-#       template:
-#         src: mods-config/ldap/instantiate.j2
-#         dest: /etc/freeradius/3.0/mods-config/ldap/instantiate
-#     - name: add a line to the instantiate block
-#       lineinfile:
-#         path: /etc/freeradius/3.0/radiusd.conf
-#         regexp: "^\\$INCLUDE mods-config/ldap/instantiate"
-#         line: "$INCLUDE mods-config/ldap/instantiate"
-#         state: present
-#         insertafter: "^instantiate\\s*{"
+     - name: create an ldap instantiation config in mods-config
+       template:
+         src: mods-config/ldap/instantiate.j2
+         dest: /etc/freeradius/3.0/mods-config/ldap/instantiate
+     - name: add a line to the instantiate block
+       lineinfile:
+         path: /etc/freeradius/3.0/radiusd.conf
+         regexp: "^\\$INCLUDE mods-config/ldap/instantiate"
+         line: "$INCLUDE mods-config/ldap/instantiate"
+         state: present
+         insertafter: "^instantiate\\s*{"
   when: use_ldap is defined and use_ldap
   tags: [ freeradius, freeradius-config, eduroam-idp ]
 
