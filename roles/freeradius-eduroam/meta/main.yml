@@ -11,6 +11,6 @@ galaxy_info:
   galaxy_tags:
     - FreeRADIUS
     - eduroam
-    - PAM
+#    - PAM
 
 dependencies: []
