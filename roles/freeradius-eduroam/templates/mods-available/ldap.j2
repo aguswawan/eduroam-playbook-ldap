@@ -1,8 +1,12 @@
+{% for server in ldap_servers %}
 ldap {
-        server = '{{server.hostname|default("localhost")}}'
-        identity = '{{server.identity}}'
-        password = {{server.password|default("''")}}
-        base_dn = '{{server.base_dn|default("dc=example,dc=org")}}'
+				server = '{{server.hostname|default("localhost")}}'
+				port = {{server.port|default("389")}}
+				{% if server.identity is defined and server.identity %}
+				identity = '{{server.identity}}'
+				password = {{server.password|default("''")}}
+				{% endif %}
+				base_dn = '{{server.base_dn|default("dc=example,dc=org")}}'
         sasl {
         }
         update {
@@ -86,3 +90,4 @@ pool {
 				idle_timeout = 60
 }
 }
+{% endfor %}
