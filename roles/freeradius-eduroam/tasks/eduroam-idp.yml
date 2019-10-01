@@ -125,23 +125,23 @@
        template:
          src: mods-config/ldap/instantiate.j2
          dest: /etc/freeradius/3.0/mods-config/ldap/instantiate
-     - name: add a line to the instantiate block
-       lineinfile:
-         path: /etc/freeradius/3.0/radiusd.conf
-         regexp: "^\\$INCLUDE mods-config/ldap/instantiate"
-         line: "$INCLUDE mods-config/ldap/instantiate"
-         state: present
-         insertafter: "^instantiate\\s*{"
+#     - name: add a line to the instantiate block
+#       lineinfile:
+#         path: /etc/freeradius/3.0/radiusd.conf
+#         regexp: "^\\$INCLUDE mods-config/ldap/instantiate"
+#         line: "$INCLUDE mods-config/ldap/instantiate"
+#         state: present
+#         insertafter: "^instantiate\\s*{"
   when: use_ldap is defined and use_ldap
   tags: [ freeradius, freeradius-config, eduroam-idp ]
 
-- name: Seed a secret for Chargeable-User-Identity
-  become: yes
-  replace:
-    path: /etc/freeradius/3.0/policy.d/cui
-    regexp: "^cui_hash_key\\s*=\\s*[\"']changeme[\"']?\\s*$"
-    replace: "cui_hash_key = \"{{ lookup('password', '/dev/null') }}\""
-  when: send_cui is defined and send_cui
-  notify:
-    - restart freeradius
-  tags: [ freeradius, freeradius-config, eduroam-idp ]
+#- name: Seed a secret for Chargeable-User-Identity
+#  become: yes
+#  replace:
+#    path: /etc/freeradius/3.0/policy.d/cui
+#    regexp: "^cui_hash_key\\s*=\\s*[\"']changeme[\"']?\\s*$"
+#    replace: "cui_hash_key = \"{{ lookup('password', '/dev/null') }}\""
+#  when: send_cui is defined and send_cui
+#  notify:
+#    - restart freeradius
+#  tags: [ freeradius, freeradius-config, eduroam-idp ]
