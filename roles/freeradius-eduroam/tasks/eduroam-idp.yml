@@ -99,11 +99,11 @@
         get_md5: no
         get_mime: no
       register: ldap
-    - name: Disable the default ldap module
-      file:
-        path: /etc/freeradius/3.0/mods-enabled/ldap
-        state: absent
-      when: ldap.stat.islnk is defined and ldap.stat.islnk
+#    - name: Disable the default ldap module
+#      file:
+#        path: /etc/freeradius/3.0/mods-enabled/ldap
+#        state: absent
+#      when: ldap.stat.islnk is defined and ldap.stat.islnk
     - name: Install a new eduroam-ish ldap module
       template:
         src: mods-available/ldap.j2
