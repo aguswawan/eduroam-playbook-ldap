@@ -27,9 +27,9 @@ clone ansible scripts
 ```bash
 git clone https://github.com/aguswawan/eduroam-playbook-ldap
 ```
-IRS setting (file config at group_vars/all)
+
 ```bash
-cd eduroam-playbook
+cd eduroam-playbook-ldap
 ```
 
 install IRS - Run Ansible
