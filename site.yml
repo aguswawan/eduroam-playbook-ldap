@@ -2,9 +2,8 @@
 - name: Set up a FreeRADIUS IdP for use with eduroam using IMAP as an identity source
   hosts: all
   roles:
-#    - pam-imap
+
     - freeradius-eduroam
-#      { role: freeradius-eduroam, use_pam: yes }
     - eapol_test
 
 # The roles above have deliberately been kept as generic as possible,
@@ -21,7 +20,7 @@
         # don't change anything except owner & group or you break idempotency
         owner: freerad
         group: freerad
-#      tags: [ pam_imap, freeradius ]
+
       tags: [ freeradius ]
     - name: Touch the pam_imap cache database
       become: yes
@@ -32,5 +31,5 @@
         group: freerad
         mode: 0660
         force: no
-#      tags: [ pam_imap, freeradius ]
+
       tags: [ freeradius ]
